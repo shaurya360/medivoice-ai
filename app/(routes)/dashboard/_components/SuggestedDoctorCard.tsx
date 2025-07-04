@@ -21,7 +21,7 @@ const SuggestedDoctorCard = ({
       onClick={() => setSelectedDoctor(doctorAgent)}
     >
       <Image
-        src={doctorAgent.image}
+        src={doctorAgent.image || ''}
         alt={doctorAgent.specialist}
         width={70}
         height={70}

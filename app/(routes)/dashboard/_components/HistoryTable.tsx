@@ -32,7 +32,7 @@ const HistoryTable = ({ historyList }: Props) => {
         </TableHeader>
         <TableBody>
           {historyList.map((record: SessionDetail, index: number) => (
-            <TableRow>
+            <TableRow key={index}>
               <TableCell className="font-medium">
                 {record.selectedDoctor?.specialist}
               </TableCell>

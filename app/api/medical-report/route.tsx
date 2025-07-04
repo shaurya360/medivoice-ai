@@ -44,6 +44,7 @@ Return the result in this JSON format:
   "recommendations": ["rec1", "rec2"]
 }
 Only include valid fields. Respond with nothing else.
+if there are no medication suggested you suggest yourself some common medicine
 `;
 
 export async function POST(req: NextRequest) {

@@ -39,8 +39,9 @@ const MedicalVoiceAgent = () => {
   }, [sessionId]);
 
   const GetSessionDetails = async () => {
+    // console.log("doctor ka data mangwara hun")
     const result = await axios.get("/api/session-chat?sessionId=" + sessionId);
-    console.log(result.data);
+    // console.log(result.data);
     setSessionDetail(result.data);
   };
 
@@ -49,32 +50,32 @@ const MedicalVoiceAgent = () => {
     const vapi = new Vapi(process.env.NEXT_PUBLIC_VAPI_API_KEY!);
 
     setVapiInstance(vapi);
-    const VapiAgentConfig = {
-      name: "AI Medical Doctor Voice Agent",
-      firstMessage:
-        "Hi there!,I'm your Ai Medical Assistant.I'm here to help you with any health questions or concerns you might have.How are you feeling today?",
-      transcriber: {
-        provider: "assembly-ai",
-        language: "en",
-      },
-      voice: {
-        provider: "playht",
-        voiceId: sessionDetail?.selectedDoctor.voiceId,
-      },
-      model: {
-        provider: "openai",
-        model: "gpt-4",
-        messages: [
-          {
-            role: "system",
-            content: sessionDetail?.selectedDoctor?.agentPrompt,
-          },
-        ],
-      },
-    };
+    // const VapiAgentConfig = {
+    //   name: "AI Medical Doctor Voice Agent",
+    //   firstMessage:
+    //     "Hi there!,I'm your Ai Medical Assistant.I'm here to help you with any health questions or concerns you might have.How are you feeling today?",
+    //   transcriber: {
+    //     provider: "assembly-ai",
+    //     language: "en",
+    //   },
+    //   voice: {
+    //     provider: "Vapi",
+    //     voiceId: "elliot",
+    //   },
+    //   model: {
+    //     provider: "openai",
+    //     model: "gpt-4",
+    //     messages: [
+    //       {
+    //         role: "system",
+    //         content: sessionDetail?.selectedDoctor?.agentPrompt,
+    //       },
+    //     ],
+    //   },
+    // };
 
     // @ts-ignore
-    vapi.start(VapiAgentConfig);
+    vapi.start(process.env.NEXT_PUBLIC_VAPI_VOICE_ASSISTANT_ID);
 
     vapi.on("call-start", () => {
       console.log("Call started");
@@ -117,19 +118,14 @@ const MedicalVoiceAgent = () => {
     console.log("report bana bc");
     setLoading(true);
     const result = await GenerateReport();
-    if (!vapiInstance) return;
-    vapiInstance.stop();
-    vapiInstance.off("call-start");
-    vapiInstance.off("call-end");
-    vapiInstance.off("message");
-    vapiInstance.off("speech-start");
-    vapiInstance.off("speech-end");
-
-    // console.log("report bana bc2");
-    setCallStarted(false);
+     console.log("report bana bc2");
+     setCallStarted(false);
     setVapiInstance(null);
     toast.success("your report is generated");
     router.replace("/dashboard");
+    if (!vapiInstance) return;
+    vapiInstance.stop();
+    
     setLoading(false);
   };
 
@@ -161,7 +157,7 @@ const MedicalVoiceAgent = () => {
       {sessionDetail && (
         <div className="flex items-center flex-col mt-10">
           <Image
-            src={sessionDetail?.selectedDoctor?.image}
+            src={sessionDetail?.selectedDoctor?.image || ''}
             alt={sessionDetail?.selectedDoctor?.specialist}
             height={80}
             width={80}

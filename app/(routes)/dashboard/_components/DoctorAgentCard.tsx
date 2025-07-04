@@ -28,7 +28,7 @@ type doctorAgentProps = {
 const DoctorAgentCard = ({ doctorAgent }: doctorAgentProps) => {
   const {has} = useAuth();
   const paidUser=has&&has({plan:'pro'})
-  console.log(paidUser);
+  // console.log(paidUser);
 const [loading, setLoading] = useState(false);
 const router = useRouter();
   const onStartConsultation = async () => {

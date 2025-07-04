@@ -18,8 +18,8 @@ interface Props {
 
 const ViewReportDialog = ({ record }: Props) => {
   const obj = JSON.stringify(record.report);
-  const res = JSON.parse(obj);
-  console.log(res);
+  const res =  JSON.parse(obj);
+  // console.log(res);
   return (
     <Dialog>
       <DialogTrigger>
@@ -57,20 +57,20 @@ const ViewReportDialog = ({ record }: Props) => {
               {/* Chief Complaint */}
               <section>
                 <h2 className="font-bold text-blue-500">Chief Complaint:</h2>
-                <p className="mt-1 text-gray-700">{res.chiefComplaint}</p>
+                <p className="mt-1 text-gray-700">{res?.chiefComplaint}</p>
               </section>
 
               {/* Summary */}
               <section>
                 <h2 className="font-bold text-blue-500">Summary:</h2>
-                <p className="mt-1 text-gray-700">{res.summary}</p>
+                <p className="mt-1 text-gray-700">{res?.summary}</p>
               </section>
 
               {/* Symptoms */}
               <section>
                 <h2 className="font-bold text-blue-500">Symptoms:</h2>
                 <ul className="list-disc list-inside mt-1 text-gray-700">
-                  {res.symptoms.map(
+                  {res?.symptoms.map(
                     (
                       symptom:
                         | string
@@ -114,22 +114,22 @@ const ViewReportDialog = ({ record }: Props) => {
                 <div className="flex gap-4 mt-1 text-gray-700">
                   <span>
                     <span className="font-semibold">Duration:</span>{" "}
-                    {res.duration}
+                    {res?.duration}
                   </span>
                   <span>
                     <span className="font-semibold">Severity:</span>{" "}
-                    {res.severity}
+                    {res?.severity}
                   </span>
                 </div>
               </section>
 
               {/* Medications Mentioned */}
-              <section>
+              {/* <section>
                 <h2 className="font-bold text-blue-500">
                   Medications Mentioned:
                 </h2>
                 <ul className="list-disc list-inside mt-1 text-gray-700">
-                  {res.medicationsMentioned.map(
+                  {res?.medicationsMentioned.map(
                     (
                       med:
                         | string
@@ -164,13 +164,13 @@ const ViewReportDialog = ({ record }: Props) => {
                     )
                   )}
                 </ul>
-              </section>
+              </section> */}
 
               {/* Recommendations */}
               <section>
                 <h2 className="font-bold text-blue-500">Recommendations:</h2>
                 <ul className="list-disc list-inside mt-1 text-gray-700">
-                  {res.recommendations.map(
+                  {res?.recommendations.map(
                     (
                       item:
                         | string

@@ -150,7 +150,7 @@ export default function HeroSectionOne() {
           Medi Voice AI is your smart medical companion. Get personalized reports, medicine suggestions, and health precautions by talking to expert AI doctors for every part of the body — anytime, anywhere.
         </motion.p>
 
-        <Link href={"/sign-in"}>
+        <Link href={"/sign-in"} >
           <motion.div
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
@@ -192,7 +192,7 @@ const Navbar = () => {
   return (
     <nav className="flex w-full items-center justify-between border-t border-b border-neutral-200 px-20 py-2 dark:border-neutral-800">
       <div className="ml-7">
-        <Image src={"/logo1.png"} alt="logo" width={140} height={600} />
+        <Link href='/'><Image src={"/logo1.png"} alt="logo" width={140} height={600} /></Link>
       </div>
       {!user? 
       <Link href={'/sign-in'}>
