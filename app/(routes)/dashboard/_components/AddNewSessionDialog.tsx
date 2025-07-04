@@ -41,7 +41,7 @@ function AddNewSessionDialog() {
       notes: note,
     });
     console.log("req7")
-    console.log(result.data.content)
+    console.log(result)
     const rawContentJson = await result.data.content.replace('```json','').replace('```','')
     const content = JSON.parse(rawContentJson)
     setSuggestedDoctors(content);
