@@ -46,8 +46,8 @@ function AddNewSessionDialog() {
     const content = JSON.parse(rawContentJson)
     setSuggestedDoctors(content);
     
-    
-    // console.log(suggestedDoctors)
+    console.log(content)
+    console.log(suggestedDoctors)
     setLoading(false);
   };
   const onStartConsultation = async () => {
