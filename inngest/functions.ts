@@ -1,14 +1,7 @@
 import { inngest } from "./client";
 import { createAgent, anthropic, openai, gemini } from '@inngest/agent-kit';
 
-export const helloWorld = inngest.createFunction(
-  { id: "hello-world" },
-  { event: "test/hello.world" },
-  async ({ event, step }) => {
-    await step.sleep("wait-a-moment", "1s");
-    return { message: `Hello ${event.data.email}!` };
-  },
-);
+
 
 export const AiMedicalAgent = createAgent({
     name: "AiMedicalChat",
@@ -119,6 +112,73 @@ export const AimediAgent=inngest.createFunction(
     async({event,step})=>{
         const {userInput} =await event?.data;
         const response = await AiMedicalAgent.run(userInput);
+        // console.log(response);
+        // const rawContent = response.output;
+        // const rawContentJson = rawContent.content.replace('```json','').replace('```','')
+        // const result = JSON.parse(rawContentJson);
+        return response;
+    }
+)
+
+
+
+export const AiReportAgent = createAgent({
+    name: "AiReportAgent",
+    description:'An Ai Agent that generate the report of the patient on the basis of coversation and his own knowledge',
+    system:`You are an AI Medical Voice Agent that just finished a voice conversation with a user. Based on doctor AI agent info and conversation between Ai medical voice agent and user and give medications(it is compulsory to suggest some), generate a structured report with the following fields:
+
+1.sessionId: a unique session identifier
+
+2.agent: the medical specialist name (e.g., "General Physician AI")
+
+3.user: name of the patient or "Anonymous" if not provided
+
+4.timestamp: current date and time in ISO format
+
+5.chiefComplaint: one-sentence summary of the main health concern
+
+6.summary: a 2-3 sentence summary of the conversation, symptoms, and recommendations
+
+7.symptoms: list of symptoms mentioned by the user
+
+8.duration: how long the user has experienced the symptoms
+
+9.severity: mild, moderate, or severe
+
+10.medicationsMentioned: list of any medicines mentioned
+
+11.recommendations: list of AI suggestions (e.g., rest, see a doctor)
+
+Return the result in this JSON format:
+
+{
+  "sessionId": "string",
+  "agent": "string",
+  "user": "string",
+  "timestamp": "ISO Date string",
+  "chiefComplaint": "string",
+  "summary": "string",
+  "symptoms": ["symptom1", "symptom2"],
+  "duration": "string",
+  "severity": "string",
+  "medicationsMentioned": ["med1", "med2"],
+  "recommendations": ["rec1", "rec2"]
+}
+Only include valid fields. Respond with nothing else.
+if there are no medication suggested you suggest yourself some common medicine
+`,
+    model:gemini({
+        model:"gemini-2.0-flash",
+        apiKey:process.env.GEMINI_API_KEY
+    })
+})
+
+export const AireportAgent=inngest.createFunction(
+    {id:"AireportAgent"},
+    {event:"AireportAgent"},
+    async({event,step})=>{
+        const {userInput} =await event?.data;
+        const response = await AiReportAgent.run(userInput);
         // console.log(response);
         // const rawContent = response.output;
         // const rawContentJson = rawContent.content.replace('```json','').replace('```','')
