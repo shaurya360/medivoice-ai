@@ -48,7 +48,8 @@ import { NextRequest, NextResponse } from "next/server";
 
 export async function POST(req: NextRequest) {
   const { notes } = await req.json();
-  const resultIds = await inngest.send({
+  try{
+    const resultIds = await inngest.send({
         name:'AimediAgent',
         data:{
             userInput:notes
@@ -68,7 +69,13 @@ export async function POST(req: NextRequest) {
     }
         await new Promise(resolve=>setTimeout(resolve,500))
     }
-    return NextResponse.json(runStatus.data?.data[0].output?.output[0])
+    return NextResponse.json(runStatus.data?.[0].output?.output[0])
+  }
+  catch(e){
+    console.log(e)
+    return NextResponse.json(e);
+  }
+  
     
 }
 
