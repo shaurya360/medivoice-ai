@@ -69,6 +69,7 @@ export async function POST(req: NextRequest) {
     }
         await new Promise(resolve=>setTimeout(resolve,500))
     }
+    console.log(runStatus.data?.[0].output?.output[0])
     return NextResponse.json(runStatus.data?.[0].output?.output[0])
   }
   catch(e){

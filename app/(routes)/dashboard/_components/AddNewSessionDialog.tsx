@@ -40,8 +40,8 @@ function AddNewSessionDialog() {
     const result = await axios.post("/api/suggest-doctors", {
       notes: note,
     });
-    // console.log("req7")
-    // console.log(result.data.content)
+    console.log("req7")
+    console.log(result.data.content)
     const rawContentJson = await result.data.content.replace('```json','').replace('```','')
     const content = JSON.parse(rawContentJson)
     setSuggestedDoctors(content);
