@@ -15,7 +15,7 @@ import { BentoGrid, BentoGridItem } from "@/components/ui/bento-grid";
 
 export function FeatureBentoGrid() {
   return (
-    <BentoGrid className="max-w-4xl mx-auto md:auto-rows-[20rem]">
+    <BentoGrid className="max-w-4xl mx-auto px-4 sm:px-6 md:px-8 lg:px-0 md:auto-rows-[20rem]">
       {items.map((item, i) => (
         <BentoGridItem
           key={i}

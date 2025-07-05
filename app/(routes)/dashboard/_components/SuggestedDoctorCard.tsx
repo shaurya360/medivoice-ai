@@ -15,9 +15,9 @@ const SuggestedDoctorCard = ({
 }: props) => {
   return (
     <div
-      className={`'flex flex-col items-center  border rounded-2xl shadow p-5 hover:border-black cursor-pointer' ${
-        selectedDoctor?.id == doctorAgent.id && "border-blue-500"
-      }`}
+      className={`flex flex-col items-center border rounded-2xl shadow p-5 hover:border-black cursor-pointer ${
+  selectedDoctor?.id === doctorAgent.id ? "border-black hover:border-black" : ""
+}`}
       onClick={() => setSelectedDoctor(doctorAgent)}
     >
       <Image
